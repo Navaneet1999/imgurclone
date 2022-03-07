@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <meta property="fb:app_id" content="6224d95d11773429bb0ef7b5">
+    <title>Document</title>
+    <style>
+        *{
+            background-color: grey;
+            color: white;
+        }
+        #navbar{
+            display: flex;
+        }
+        #input_icon > input {
+            width: 400px;
+            height: 30px;
+            padding: 10px;
+        }
+        #navbtn {
+            height: 40px;
+            width: 150px;
+        }
+        .input-icons i {
+            position: absolute;
+        }
+          
+        .input-icons {
+            width: 100%;
+        }
+          
+        .icon {
+            padding: 10px;
+            min-width: 50px;
+            /* text-align: center; */
+        }
+          
+        .input-field {
+            width: 400px;
+            padding: 10px;
+            
+        }
+        #navlogo{
+            padding-right: 30px;
+        }
+        .btn1{
+            margin-right: 200px;
+            background-color: green;
+            width: 180px;
+        }
+        .btn2{
+            width: 190px;
+            margin-right: 30px;
+        }
+        #container {
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(4, 23%);
+            grid-gap: 2%;
+            justify-content: space-around;
+            margin-top: 30px;
+            margin-left: 10%;
+            margin-right: 10%;
+        }
+        #container > div{
+            width: 230px;
+            height: 290px;
+            color: white;
+            box-shadow: 50% black;
+        }
+        #container > div > img{
+            width: 230px;
+            height: 200px;
+        }
+        #btn3{
+            background-color: green;
+        }
+        #btn4{
+            background-color: blue;
+        }
+        #btn5{
+            background-color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar">
+        <img id="navlogo"
+        src="https://cdn.worldvectorlogo.com/logos/imgur-logo.svg" alt=""
+            width="100px"
+        />
+        <button id="navbtn" class="btn1">New Post</button>
+        <div class="input-icons">
+            
+            <input class="input-field" 
+                   type="text"
+                   placeholder="Images, #tags, @users oh my!">
+            <i class="fa-regular fa-magnifying-glass"></i>
+        </div>
+        <div><i class="fa-solid fa-award-simple"></i></div>
+        <button class="btn2" id="btn4">Go Ad-Free</button>
+        <button class="btn2" id="btn5">Sign in</button>
+        <button class="btn2" id="btn3">Sign up</button>
+    </div>
+    <div id="container">
+
+    </div>
+</body>
+</html>
+<script>
+    //const url;
+    const container = document.getElementById("container");
+
+    async function searchmeme(){
+        try{
+            let url = "https://pixabay.com/api/?key=26027300-2796f2160580bb8f09a186173";
+            let response = await fetch(url);
+            let data = await response.json();
+            let datas = data.hits;
+            appendmeme(datas)
+            console.log("data:",datas);
+        } catch(err){
+            console.log(err)
+        }
+    }
+
+    const appendmeme = (arr) => {
+        //console.log(arr);
+        arr.forEach(element => {
+            console.log(element);
+            
+            let div = document.createElement("div");
+            
+            let url = element.previewURL;
+            let img = document.createElement("img");
+            img.src = url;
+            let h3 = document.createElement("h3");
+            h3.innerText = element.tags
+            let views = document.createElement("h4");
+            views.innerText = element.views
+            let comments = document.createElement("h4");
+            comments.innerText = element.comments;
+            div.append(img,h3,views);
+            container.append(div)
+        });
+    }
+    searchmeme();
+</script>
